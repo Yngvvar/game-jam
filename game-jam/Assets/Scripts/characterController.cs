@@ -46,7 +46,7 @@ public class characterController : MonoBehaviour
         {
             move.y = 0;
         }
-        characterRepresentation.transform.LookAt(mousePositionOnScreen);
+        characterRepresentation.transform.LookAt(new Vector3(mousePositionOnScreen.x, character.transform.position.y, mousePositionOnScreen.z));
         characterCtrl.Move(move);
     }
     void getInput()
@@ -60,9 +60,6 @@ public class characterController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
             mousePositionOnScreen = hit.point;
-            
-        else
-            print("I'm looking at nothing!");
             
     }
 
