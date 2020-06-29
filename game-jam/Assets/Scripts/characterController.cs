@@ -9,13 +9,16 @@ public class characterController : MonoBehaviour
     [SerializeField]
     float walkingSpeed;
     [SerializeField]
+    float dashPower;
+    [SerializeField]
     GameObject characterRepresentation;
     CharacterController characterCtrl;
     Vector3 mousePositionOnScreen;
     Vector2 walkingInput;
     Vector3 move;
+    float dash;
 
-    
+
 
 
 
@@ -36,7 +39,10 @@ public class characterController : MonoBehaviour
 
     void movePlayer()
     {
-        move = new Vector3(walkingInput.x, 0, walkingInput.y) * walkingSpeed * Time.deltaTime;
+        move = new Vector3(walkingInput.x, move.y, walkingInput.y) * walkingSpeed * Time.deltaTime * dash;
+
+
+
         if (!characterCtrl.isGrounded)
         {
             //if not grounded apply gravity
@@ -46,6 +52,7 @@ public class characterController : MonoBehaviour
         {
             move.y = 0;
         }
+        //rotate character representation towards mouse cursor
         characterRepresentation.transform.LookAt(new Vector3(mousePositionOnScreen.x, character.transform.position.y, mousePositionOnScreen.z));
         characterCtrl.Move(move);
     }
@@ -53,14 +60,21 @@ public class characterController : MonoBehaviour
     {
         walkingInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         walkingInput = Vector3.ClampMagnitude(walkingInput, 1.0f);
-
-        //print(Input.mousePosition.normalized);
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
             mousePositionOnScreen = hit.point;
-            
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            dash += dashPower;
+        }
+        else
+        {
+            dash -= 1;
+            dash = Mathf.Clamp(dash, 1, dashPower);
+        }
     }
 
 }
