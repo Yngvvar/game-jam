@@ -8,8 +8,10 @@ public class characterController : MonoBehaviour
     GameObject character;
     [SerializeField]
     float walkingSpeed;
+    [SerializeField]
+    GameObject characterRepresentation;
     CharacterController characterCtrl;
-    Vector2 mouseInput;
+    Vector3 mousePositionOnScreen;
     Vector2 walkingInput;
     Vector3 move;
 
@@ -37,19 +39,31 @@ public class characterController : MonoBehaviour
         move = new Vector3(walkingInput.x, 0, walkingInput.y) * walkingSpeed * Time.deltaTime;
         if (!characterCtrl.isGrounded)
         {
+            //if not grounded apply gravity
             move.y += Physics.gravity.y * Time.deltaTime;
         }
         else
         {
             move.y = 0;
         }
+        characterRepresentation.transform.LookAt(mousePositionOnScreen);
         characterCtrl.Move(move);
     }
     void getInput()
     {
         walkingInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         walkingInput = Vector3.ClampMagnitude(walkingInput, 1.0f);
-        mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        //print(Input.mousePosition.normalized);
+        
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+            mousePositionOnScreen = hit.point;
+            
+        else
+            print("I'm looking at nothing!");
+            
     }
 
 }
