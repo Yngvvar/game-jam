@@ -72,7 +72,7 @@ public class characterController : MonoBehaviour
         }
         else
         {
-            dash -= 1;
+            dash -= 0.5f;
             dash = Mathf.Clamp(dash, 1, dashPower);
         }
     }

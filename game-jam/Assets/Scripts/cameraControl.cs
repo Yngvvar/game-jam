@@ -25,7 +25,7 @@ public class cameraControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector3 newPos = character.transform.position + defaultCameraPos;
        
