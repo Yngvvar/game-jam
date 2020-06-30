@@ -16,6 +16,8 @@ public class enemyAI : MonoBehaviour
     LayerMask layer;
     [SerializeField]
     GameObject player;
+    [SerializeField]
+    float healthPoints = 100.0f;
 
 
     CharacterController enemyCharacterControler;
@@ -46,9 +48,31 @@ public class enemyAI : MonoBehaviour
     void Update()
     {
         spotingPlayer();
+        goTowordsPlayer();
         sceneTime = Mathf.RoundToInt(Time.timeSinceLevelLoad);
 
-        if (isAgro && Vector3.Distance(enemy.transform.position, player.transform.position) > 2)
+
+        randomMovment();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "bullet")
+        {
+            print("hit");
+            Destroy(other.gameObject);
+            healthPoints -= 10.0f;
+        }
+        if (healthPoints <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+        
+    }
+
+    void goTowordsPlayer()
+    {
+        if (isAgro && Vector3.Distance(enemy.transform.position, player.transform.position) > 1.5f)
         {
             Vector3 newDirection = Vector3.RotateTowards(enemy.transform.forward, player.transform.position - enemy.transform.position, turnSpeed * Time.deltaTime, 0);
             //print(newDirection);
@@ -71,9 +95,8 @@ public class enemyAI : MonoBehaviour
                 timeOfMovment = sceneTime;
             }
         }
-
-        randomMovment();
     }
+
 
     void randomMovment()
     {

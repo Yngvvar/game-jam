@@ -34,14 +34,11 @@ public class playerShoting : MonoBehaviour
         spawnPosytion.localRotation = character.transform.localRotation;
     }
 
-
-
-
     void shoot()
     {
         GameObject bullet = Instantiate<GameObject>(objectToSpawn, spawnPosytion.transform.position, character.transform.rotation, bullets.transform);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-        bulletRb.AddForce(Vector3.forward * bulletSpeed, ForceMode.Force);
+        bulletRb.AddRelativeForce(Vector3.forward * bulletSpeed, ForceMode.Force);
 
     }
 }
