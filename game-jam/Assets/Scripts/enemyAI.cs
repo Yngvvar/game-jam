@@ -17,11 +17,13 @@ public class enemyAI : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+
+    CharacterController enemyCharacterControler;
+
     bool isAgro = false;
     Vector3 target;
     Vector3 newPosytion;
     Vector3 randomNewPos;
-    Rigidbody enemyRB;
     int time;
     int sceneTime;
     int timeOfMovment;
@@ -34,9 +36,9 @@ public class enemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyCharacterControler = GetComponent<CharacterController>();
         player = GameObject.FindWithTag("Player");
         time = sceneTime + Random.Range(2,5);
-        enemyRB = enemy.GetComponent<Rigidbody>();
         randomNewPos = new Vector3(enemy.transform.position.x + Random.Range(-5, 5), enemy.transform.position.y, enemy.transform.position.z + Random.Range(-5, 5)) - enemy.transform.position;
     }
 
@@ -51,7 +53,9 @@ public class enemyAI : MonoBehaviour
             Vector3 newDirection = Vector3.RotateTowards(enemy.transform.forward, player.transform.position - enemy.transform.position, turnSpeed * Time.deltaTime, 0);
             //print(newDirection);
             enemy.transform.rotation = Quaternion.LookRotation(new Vector3(newDirection.x, 0, newDirection.z));
-            enemyRB.velocity = enemy.transform.forward * moveSpeed;
+
+            enemyCharacterControler.SimpleMove(enemy.transform.forward * moveSpeed);
+            //enemyRB.velocity = enemy.transform.forward * moveSpeed + Physics.gravity;
             if (Vector3.Distance(enemy.transform.position, player.transform.position) > 2 * viewDistance)
             {
                 isAgro = false;
@@ -67,6 +71,7 @@ public class enemyAI : MonoBehaviour
                 timeOfMovment = sceneTime;
             }
         }
+
         randomMovment();
     }
 
@@ -78,7 +83,9 @@ public class enemyAI : MonoBehaviour
             Vector3 newDirection = Vector3.RotateTowards(enemy.transform.forward, randomNewPos, turnSpeed * Time.deltaTime, 0);
             //print(newDirection);
             enemy.transform.rotation = Quaternion.LookRotation(new Vector3(newDirection.x, 0, newDirection.z));
-            enemyRB.velocity = enemy.transform.forward * moveSpeed/3;
+
+            enemyCharacterControler.SimpleMove(enemy.transform.forward * moveSpeed);
+            //enemyRB.velocity = enemy.transform.forward * moveSpeed/3;
             if (timeOfMovment + 0.5f < sceneTime)
             {
                 canRandomlyMove = false;
