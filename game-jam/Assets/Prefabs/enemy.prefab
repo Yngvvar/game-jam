@@ -110,7 +110,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 90
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1164606885287061423
 MonoBehaviour:
@@ -127,6 +127,7 @@ MonoBehaviour:
   enemy: {fileID: 1164606885287061417}
   viewDistance: 10
   moveSpeed: 5
+  turnSpeed: 5
   layer:
     serializedVersion: 2
     m_Bits: 256

@@ -10,21 +10,10 @@ public class cameraControl : MonoBehaviour
     Camera mainCamera;
     [SerializeField]
     Vector3 defaultCameraPos;
-    [SerializeField]
-    float moveSpead;
 
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         Vector3 newPos = character.transform.position + defaultCameraPos;

@@ -34,6 +34,7 @@ public class enemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         time = sceneTime + Random.Range(2,5);
         enemyRB = enemy.GetComponent<Rigidbody>();
         randomNewPos = new Vector3(enemy.transform.position.x + Random.Range(-5, 5), enemy.transform.position.y, enemy.transform.position.z + Random.Range(-5, 5)) - enemy.transform.position;
@@ -93,7 +94,7 @@ public class enemyAI : MonoBehaviour
     {
         if (Physics.CheckSphere(enemy.transform.position, viewDistance, layer))
         {
-            print("enemy spoted");
+            //print("enemy spoted");
             isAgro = true;
         }
     }
