@@ -51,7 +51,6 @@ public class enemyAI : MonoBehaviour
         goTowordsPlayer();
         sceneTime = Mathf.RoundToInt(Time.timeSinceLevelLoad);
 
-
         randomMovment();
     }
 
@@ -67,7 +66,6 @@ public class enemyAI : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        
     }
 
     void goTowordsPlayer()

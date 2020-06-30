@@ -12,6 +12,8 @@ public class characterController : MonoBehaviour
     float dashPower;
     [SerializeField]
     GameObject characterRepresentation;
+    [SerializeField]
+    GameObject characterGun;
     CharacterController characterCtrl;
     Vector3 mousePositionOnScreen;
     Vector2 walkingInput;
@@ -54,6 +56,7 @@ public class characterController : MonoBehaviour
         }
         //rotate character representation towards mouse cursor
         characterRepresentation.transform.LookAt(new Vector3(mousePositionOnScreen.x, character.transform.position.y, mousePositionOnScreen.z));
+        characterGun.transform.LookAt(mousePositionOnScreen);
         characterCtrl.Move(move);
     }
     void getInput()

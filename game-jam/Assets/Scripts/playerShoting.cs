@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerShoting : MonoBehaviour
 {
     [SerializeField]
-    GameObject character;
+    GameObject gun;
     [SerializeField]
     GameObject objectToSpawn;
     [SerializeField]
@@ -31,14 +31,16 @@ public class playerShoting : MonoBehaviour
         {
             shoot();
         }
-        spawnPosytion.localRotation = character.transform.localRotation;
+        Debug.DrawRay(spawnPosytion.transform.position, gun.transform.forward, Color.red);
+        //spawnPosytion.localRotation = gun.transform.localRotation;  
     }
 
     void shoot()
     {
-        GameObject bullet = Instantiate<GameObject>(objectToSpawn, spawnPosytion.transform.position, character.transform.rotation, bullets.transform);
+        GameObject bullet = Instantiate<GameObject>(objectToSpawn, spawnPosytion.transform.position, gun.transform.rotation, bullets.transform);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-        bulletRb.AddRelativeForce(Vector3.forward * bulletSpeed, ForceMode.Force);
-
+        
+        bulletRb.AddForce(gun.transform.forward * bulletSpeed, ForceMode.Force);
+        print(gun.transform.forward);
     }
 }
