@@ -17,6 +17,8 @@ public class playerShoting : MonoBehaviour
     [SerializeField]
     float bulletSpeed;
 
+    
+
     GameObject meleeWeapon;
 
 
