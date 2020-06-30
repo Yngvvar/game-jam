@@ -18,6 +18,8 @@ public class enemyAI : MonoBehaviour
     GameObject player;
     [SerializeField]
     float healthPoints = 100.0f;
+    [SerializeField]
+    GameObject bloodEffect;
 
 
     CharacterController enemyCharacterControler;
@@ -58,12 +60,14 @@ public class enemyAI : MonoBehaviour
     {
         if (other.gameObject.tag == "bullet")
         {
+            GameObject blood = Instantiate<GameObject>(bloodEffect, enemy.transform.position, enemy.transform.rotation, transform);
             print("bullet hit");
             Destroy(other.gameObject);
             healthPoints -= 10.0f;
         }
         else if (other.gameObject.tag == "melee")
         {
+            GameObject blood = Instantiate<GameObject>(bloodEffect, enemy.transform.position, enemy.transform.rotation, transform);
             print("melee hit");
             Destroy(other.gameObject);
             healthPoints -= 20.0f;

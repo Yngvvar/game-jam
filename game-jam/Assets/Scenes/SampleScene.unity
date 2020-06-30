@@ -1614,7 +1614,7 @@ MonoBehaviour:
     type: 3}
   spawnPosytion: {fileID: 1427141060}
   bullets: {fileID: 82466737}
-  bulletSpeed: 2000
+  bulletSpeed: 3000
 --- !u!1 &1748596414
 GameObject:
   m_ObjectHideFlags: 0

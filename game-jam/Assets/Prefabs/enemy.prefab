@@ -116,6 +116,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   player: {fileID: 0}
+  healthPoints: 100
+  bloodEffect: {fileID: 2747189364380667985, guid: 35cf3785d41347d49a260b3cd1ba30bf,
+    type: 3}
 --- !u!143 &-9153747627600005477
 CharacterController:
   m_ObjectHideFlags: 0
