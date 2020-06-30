@@ -7,6 +7,7 @@ TagManager:
   - npc
   - portal
   - bullet
+  - melee
   layers:
   - Default
   - TransparentFX

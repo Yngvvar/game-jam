@@ -40,7 +40,7 @@ public class enemyAI : MonoBehaviour
     {
         enemyCharacterControler = GetComponent<CharacterController>();
         player = GameObject.FindWithTag("Player");
-        time = sceneTime + Random.Range(2,5);
+        time = sceneTime + 1;
         randomNewPos = new Vector3(enemy.transform.position.x + Random.Range(-5, 5), enemy.transform.position.y, enemy.transform.position.z + Random.Range(-5, 5)) - enemy.transform.position;
     }
 
@@ -58,9 +58,15 @@ public class enemyAI : MonoBehaviour
     {
         if (other.gameObject.tag == "bullet")
         {
-            print("hit");
+            print("bullet hit");
             Destroy(other.gameObject);
             healthPoints -= 10.0f;
+        }
+        else if (other.gameObject.tag == "melee")
+        {
+            print("melee hit");
+            Destroy(other.gameObject);
+            healthPoints -= 20.0f;
         }
         if (healthPoints <= 0)
         {

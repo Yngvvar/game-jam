@@ -9,13 +9,15 @@ public class playerShoting : MonoBehaviour
     [SerializeField]
     GameObject objectToSpawn;
     [SerializeField]
+    GameObject meleObject;
+    [SerializeField]
     Transform spawnPosytion;
     [SerializeField]
     Transform bullets;
     [SerializeField]
     float bulletSpeed;
 
-
+    GameObject meleeWeapon;
 
 
     // Start is called before the first frame update
@@ -31,8 +33,12 @@ public class playerShoting : MonoBehaviour
         {
             shoot();
         }
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            melee();
+        }
         Debug.DrawRay(spawnPosytion.transform.position, gun.transform.forward, Color.red);
-        //spawnPosytion.localRotation = gun.transform.localRotation;  
+        //spawnPosytion.localRotation = gun.transform.localRotation;
     }
 
     void shoot()
@@ -42,5 +48,15 @@ public class playerShoting : MonoBehaviour
         
         bulletRb.AddForce(gun.transform.forward * bulletSpeed, ForceMode.Force);
         print(gun.transform.forward);
+    }
+    void melee()
+    {
+        meleeWeapon = Instantiate<GameObject>(meleObject, spawnPosytion.transform.position, gun.transform.rotation, bullets.transform);
+        
+
+    }
+    private void LateUpdate()
+    {
+        
     }
 }
