@@ -24,6 +24,7 @@ public class enemyAI : MonoBehaviour
 
     CharacterController enemyCharacterControler;
 
+    bool recivedDmg = false;
     bool isAgro = false;
     Vector3 target;
     Vector3 newPosytion;
@@ -58,24 +59,43 @@ public class enemyAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "bullet")
-        {
-            GameObject blood = Instantiate<GameObject>(bloodEffect, enemy.transform.position, enemy.transform.rotation, transform);
-            print("bullet hit");
-            Destroy(other.gameObject);
-            healthPoints -= 10.0f;
-        }
-        else if (other.gameObject.tag == "melee")
-        {
-            GameObject blood = Instantiate<GameObject>(bloodEffect, enemy.transform.position, enemy.transform.rotation, transform);
-            print("melee hit");
-            Destroy(other.gameObject);
-            healthPoints -= 20.0f;
-        }
+        //if (other.gameObject.tag == "bullet")
+        //{
+
+
+        //    GameObject blood = Instantiate<GameObject>(bloodEffect, enemy.transform.position, enemy.transform.rotation, transform);
+        //    print("bullet hit");
+        //    recivedDmg = true;
+        //    Destroy(other.gameObject);
+        //    healthPoints -= 10.0f;
+        //}
+        //else if (other.gameObject.tag == "melee")
+        //{
+        //    GameObject blood = Instantiate<GameObject>(bloodEffect, enemy.transform.position, enemy.transform.rotation, transform);
+        //    print("melee hit");
+        //    recivedDmg = true;
+        //    Destroy(other.gameObject);
+        //    healthPoints -= 20.0f;
+        //}
+
+        if (WeaponsFactory.TagSupported(other.gameObject.tag))
+            this.handleWeapon(other.gameObject);
+
         if (healthPoints <= 0)
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void handleWeapon(GameObject OtherEntity)
+    {
+        Weapon weapon = WeaponsFactory.GetByTag(OtherEntity.tag);
+
+        GameObject blood = Instantiate<GameObject>(bloodEffect, enemy.transform.position, enemy.transform.rotation, transform);
+        print("bullet hit");
+        recivedDmg = true;
+        Destroy(OtherEntity.gameObject);
+        healthPoints -= weapon.Hitpoints;
     }
 
     void goTowordsPlayer()
@@ -91,6 +111,7 @@ public class enemyAI : MonoBehaviour
             if (Vector3.Distance(enemy.transform.position, player.transform.position) > 2 * viewDistance)
             {
                 isAgro = false;
+                recivedDmg = false;
                 time = sceneTime + Random.Range(2, 5);
             }
         }
@@ -135,5 +156,10 @@ public class enemyAI : MonoBehaviour
             //print("enemy spoted");
             isAgro = true;
         }
+        else if (Vector3.Distance(enemy.transform.position, player.transform.position) < 3 * viewDistance && recivedDmg)
+        {
+            isAgro = true;
+        }
+
     }
 }

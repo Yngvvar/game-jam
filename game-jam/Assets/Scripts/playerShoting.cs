@@ -49,7 +49,7 @@ public class playerShoting : MonoBehaviour
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         
         bulletRb.AddForce(gun.transform.forward * bulletSpeed, ForceMode.Force);
-        print(gun.transform.forward);
+        //print(gun.transform.forward);
     }
     void melee()
     {

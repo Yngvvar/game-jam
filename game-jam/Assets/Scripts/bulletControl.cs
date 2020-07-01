@@ -5,12 +5,6 @@ using UnityEngine;
 public class bulletControl : MonoBehaviour
 {
     
-
-
-
-
-
-
     void Start()
     {
         
@@ -21,7 +15,6 @@ public class bulletControl : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        
         Destroy(this.gameObject);
     }
 
