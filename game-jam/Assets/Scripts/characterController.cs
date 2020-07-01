@@ -7,9 +7,9 @@ public class characterController : MonoBehaviour
     [SerializeField]
     GameObject character;
     [SerializeField]
-    float walkingSpeed;
+    float walkingSpeed = 12;
     [SerializeField]
-    float dashPower;
+    float dashPower = 5;
     [SerializeField]
     GameObject characterRepresentation;
     [SerializeField]
@@ -27,6 +27,7 @@ public class characterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        character = GameObject.FindWithTag("Player");
         characterCtrl = character.GetComponent<CharacterController>();
     }
 

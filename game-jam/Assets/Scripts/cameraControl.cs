@@ -9,10 +9,17 @@ public class cameraControl : MonoBehaviour
     [SerializeField]
     Camera mainCamera;
     [SerializeField]
-    Vector3 defaultCameraPos;
+    Vector3 defaultCameraPos = new Vector3(0,20,-20);
 
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
+
+    private void Start()
+    {
+        character = GameObject.FindWithTag("Player");
+        mainCamera = Camera.main;
+        mainCamera.transform.rotation = Quaternion.Euler(45,0,0);
+    }
 
     void FixedUpdate()
     {
